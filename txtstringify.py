@@ -9,20 +9,22 @@ class TxtStringify(object):
 
 		self.__numbers = [str(n) for n in range(0,10)]
 
-	def special_char_ovewrite(character_list):
+	def special_char_overwrite(character_list):
 
 		"""
 
-		Receives a list to overwrite the special character list used to clean the text
+		Receives a list defining the special characters list used for cleaning the text
+		used on some functions of this class
+
+		If no list is provided, it is used a default list
 
 		"""
 
 		if type(character_list) is list:
+
 			self.__special_characters = character_list
 
-		else:
-
-			return False
+		return
 
 
 	def __get_file_data(self, file_path, lines=False):
@@ -45,7 +47,8 @@ class TxtStringify(object):
 
 		except:
 
-			return False
+			return
+
 
 	def raw_lines(self, file_path):
 
@@ -61,9 +64,8 @@ class TxtStringify(object):
 
 			return text
 
-		else:
+		return
 
-			return False
 
 	def raw_text(self, file_path):
 
@@ -79,9 +81,8 @@ class TxtStringify(object):
 
 			return text
 
-		else:
+		return
 
-			return False
 
 	def text(self, file_path):
 
@@ -101,9 +102,8 @@ class TxtStringify(object):
 
 			return text
 
-		else:
+		return 
 
-			return False
 
 	def clean_text(self, file_path, 
 		nospecial=False, nonumbers=False, nospaces=False, lower=False, upper=False):
@@ -145,8 +145,11 @@ class TxtStringify(object):
 			if nonumbers:
 				
 				temp = ""
+
 				for s in text:
+
 					if s not in self.__numbers:
+
 						temp += s
 
 				cleantxt = text = temp 
@@ -154,7 +157,6 @@ class TxtStringify(object):
 			if nospaces:
 			
 				cleantxt = cleantxt.replace(" ","")
-
 
 			if lower:
 
@@ -166,8 +168,6 @@ class TxtStringify(object):
 
 			return cleantxt
 
-		else:
-
-			return False
+		return
 
 txtstringify = TxtStringify()
