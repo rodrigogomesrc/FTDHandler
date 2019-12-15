@@ -50,19 +50,30 @@ class TxtStringify(object):
 			return
 
 
-	def raw_lines(self, file_path):
+	def raw_lines(self, file_path, linebreaks=True):
 
 		"""
 		
 		It returns the list of the lines of the file
 
+		Set linebreaks=False to remove the linebreaks from the lines
+
 		"""
+		lines = self.__get_file_data(file_path, lines=True)
 
-		text = self.__get_file_data(file_path, lines=True)
+		if linebreaks:
 
-		if text:
+			if lines:
 
-			return text
+				return lines
+
+		else:
+
+			cleaned_lines = [l.rstrip('\n') for l in lines]
+
+			if cleaned_lines:
+
+				return cleaned_lines
 
 		return
 
