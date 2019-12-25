@@ -6,8 +6,12 @@ class TxtStringify(object):
 		'@','_','-','[',']','{','}','%','©','+','-','=','*','&','/','º',
 		'ª','”','“','(',')', "$", "—", '–', '…', "'", '¬', '°', '²', '³', '>', 
 		'‘', '’']
-
 		self.__numbers = [str(n) for n in range(0,10)]
+		self.__english_stopwords = list()
+		self.__portuguese_stopwords = list()
+		self.__load_english_stopwords()
+		self.__load_portuguese_stopwords()
+
 
 	def special_char_overwrite(character_list):
 
@@ -48,6 +52,52 @@ class TxtStringify(object):
 		except:
 
 			return
+
+
+	def __load_english_stopwords(self):
+
+
+		english_file = open("english_stopwords.txt", "r")
+		english_lines = english_file.readlines()
+
+		for line in english_lines:
+
+			self.__english_stopwords.append(line.rstrip('\n'))
+
+		english_file.close()
+
+
+	def __load_portuguese_stopwords(self):
+
+		portuguese_file = open("portuguese_stopwords.txt", "r")
+		portuguese_lines = portuguese_file.readlines()
+
+		for line in portuguese_lines:
+
+			self.__portuguese_stopwords.append(line.rstrip('\n'))
+
+		portuguese_file.close()
+
+
+	def __remove_english_stopwords(self, text):
+		
+		words = text.split()
+		new_words = [word for word in words if word not in self.__english_stopwords]
+		new_text = ' '.join(new_words)
+
+		return new_text
+
+
+
+	def __remove_portuguese_stopwords(self, text):
+		
+		words = text.split()
+		new_words = list()
+		new_words = [word for word in words if word not in self.__portuguese_stopwords]
+		new_text = ' '.join(new_words)
+
+		return new_text
+
 
 
 	def raw_lines(self, file_path, linebreaks=True):
@@ -117,7 +167,7 @@ class TxtStringify(object):
 
 
 	def clean_text(self, file_path, 
-		nospecial=False, nonumbers=False, nospaces=False, lower=False, upper=False):
+		nospecial=False, nonumbers=False, nospaces=False, lower=False, upper=False, nostopwords=False):
 
 		"""
 		It returnes the text with treatement according to the parameters
@@ -137,6 +187,13 @@ class TxtStringify(object):
 
 		(make uppercase)
 		upper = True
+
+		(remove stopwords)
+		nostopwords = "english"
+
+		or 
+
+		nostopwords = "portuguese"
 
 		If no parameter is assigned, it returns the same as text()
 
@@ -176,6 +233,14 @@ class TxtStringify(object):
 			if upper:
 				
 				cleantxt = cleantxt.upper()
+
+			if nostopwords == "portuguese":
+
+				cleantxt = self.__remove_portuguese_stopwords(cleantxt)
+
+			if nostopwords == "english":
+
+				cleantxt = self.__remove_english_stopwords(cleantxt)
 
 			return cleantxt
 
