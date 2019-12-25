@@ -57,7 +57,7 @@ class TxtStringify(object):
 	def __load_english_stopwords(self):
 
 
-		english_file = open("english_stopwords.txt", "r")
+		english_file = open("./TxtStringify/english_stopwords.txt", "r")
 		english_lines = english_file.readlines()
 
 		for line in english_lines:
@@ -69,7 +69,7 @@ class TxtStringify(object):
 
 	def __load_portuguese_stopwords(self):
 
-		portuguese_file = open("portuguese_stopwords.txt", "r")
+		portuguese_file = open("./TxtStringify/portuguese_stopwords.txt", "r")
 		portuguese_lines = portuguese_file.readlines()
 
 		for line in portuguese_lines:
