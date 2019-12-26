@@ -1,4 +1,4 @@
-class TxtStringify(object):
+class FTDHandler(object):
 
 	def __init__(self):
 
